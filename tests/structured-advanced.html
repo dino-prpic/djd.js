@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>(advanced structured) Dynamic JSON data</title>
+</head>
+
+<body>
+
+    <h1>
+        <dynamic-data data-get="person.name"></dynamic-data> 
+        (<dynamic-data data-get="person.age"></dynamic-data>)
+    </h1>
+
+    <p>
+        Address:
+        <span id="address"></span>
+    </p>
+
+    <input id="changeAge" type="number" placeholder="Change Age">
+    <br>
+    <button id="changeAddress">Change Street Number</button>
+
+
+
+    <script type="module">
+        import data from '../djd.js';
+
+        // UPDATE DOM
+        data.changed('person.address*', (newValue) => {
+            document.getElementById('address').innerHTML = `${newValue.street} ${newValue.number}`;
+        });
+
+        // SET DATA
+        data.set.person = {
+            name: 'John Doe',
+            age: 23,
+            address: {
+                street: 'Whatever Street',
+                number: 21
+            }
+        };
+
+        document.getElementById('changeAge').addEventListener('change', (e) => {
+            data.set.person.age = e.target.value;
+        });
+
+        document.getElementById('changeAddress').addEventListener('click', () => {
+            data.set.person.address.number = 27;
+        });
+
+
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>(advanced) Dynamic JSON data</title>
+</head>
+
+<body>
+
+    <button id="minus">-</button>
+    <span id="state"></span>
+    <button id="plus">+</button>
+
+    <script type="module">
+        import data from '../djd.js';
+
+        // UPDATE DOM when data changes
+        data.changed('counter', (value) => {
+            document.getElementById('state').innerHTML = value;
+        });
+
+        // SET DATA
+        data.set.counter = 0;
+        document.getElementById('plus').addEventListener('click', () => { data.set.counter++; });
+        document.getElementById('minus').addEventListener('click', () => { data.set.counter--; });
+    </script>
+</body>
+
+</html>
